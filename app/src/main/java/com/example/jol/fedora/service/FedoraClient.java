@@ -1,5 +1,7 @@
 package com.example.jol.fedora.service;
 
+import com.example.jol.fedora.signUp.SignUpActivity;
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -24,32 +26,36 @@ import static java.lang.System.in;
 public class FedoraClient extends AsyncTask<String, Void, String> {
     private final String mBaseUrl = "https://fedoras.herokuapp.com/api/";
     private final Context mContext;
-
-    public FedoraClient(Context context){
+    private ServiceActivity callingActivity;
+    public FedoraClient(Context context, ServiceActivity activity){
         mContext = context;
+        this.callingActivity = activity;
     }
 
     @Override
     protected String doInBackground(String... params) {
         String response = "";
         try {
-            response = POST(params[0]);
+            response = POST(params[0], params[1], params[2], params[3]);
         }catch (Exception ex){
             Log.d("LOGIN FAILED", ex.getMessage());
         }
 
+//        System.out.println(response);
         return response;
     }
 
-    public String POST(String resource) throws Exception {
-        URL url = new URL(mBaseUrl + resource);
+    public String POST(String... resource) throws Exception {
+        URL url = new URL(mBaseUrl + resource[0]);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 
         connection.setRequestMethod("POST");
         addHttpHeaders(connection);
 
-        String body =  "{\"username\":\"jeppeFrånAndroidApp\",\"password\":\"minmor321\",\"passwordConfirmation\":\"minmor321\",\"errors\":{\"username\":\"\"\n" +
+        String body =  "{\"username\":\"" + resource[1] + "\",\"password\":\"" + resource[2] + "\",\"passwordConfirmation\":\"" + resource[3] + "\",\"errors\":{\"username\":\"\"\n" +
                 "},\"isLoading\":false,\"invalid\":false}";
+
+//        System.out.println(body);
 
         byte[] outputInBytes = body.getBytes("UTF-8");
         OutputStream os = connection.getOutputStream();
@@ -70,13 +76,20 @@ public class FedoraClient extends AsyncTask<String, Void, String> {
             out.append(line);
         }
 
+//        System.out.println(out.toString());
 
 
         int responseCode = connection.getResponseCode();
 
-        //connection.setDoOutput(true);
+//        connection.setDoOutput(true);
 
         return out.toString();
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        callingActivity.deserializeAndCallback(s);
     }
 
     private void addHttpHeaders(HttpsURLConnection connection){

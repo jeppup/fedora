@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -15,14 +13,14 @@
             android:id="@+id/userNameTextView"
             android:layout_weight="0.08"
             android:layout_width="50dp"
-            android:textAlignment="textEnd"
+            android:textAlignment="textStart"
             android:paddingRight="20dp" />
         <EditText
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/userNameEditText"
-            android:hint="User plz"
+            android:hint="Username"
             android:layout_width="200dp" />
     </android.support.v7.widget.LinearLayoutCompat>
 
@@ -31,35 +29,40 @@
         android:layout_height="50dp"
         android:orientation="horizontal">
         <TextView
-            android:text="Password"
-            android:layout_width="102dp"
+            android:text="Password:"
             android:layout_height="40dp"
-            android:id="@+id/passwordTextView"
-            android:layout_weight="1.98"
-            android:textAlignment="textEnd"
+            android:id="@+id/password"
+            android:layout_weight="0.08"
+            android:layout_width="50dp"
+            android:textAlignment="textStart"
             android:paddingRight="20dp" />
         <EditText
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/passwordEditText"
-            tools:text="dinmamma"
             android:layout_width="200dp" />
     </android.support.v7.widget.LinearLayoutCompat>
 
     <android.support.v7.widget.LinearLayoutCompat
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:orientation="horizontal"
-    android:gravity="center">
-    <Button
-        android:text="Login"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginButton"
-        android:layout_width="150dp"
-        android:onClick="loginButtonClick"/>
-
-</android.support.v7.widget.LinearLayoutCompat>
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:text="Confirm password:"
+            android:layout_height="40dp"
+            android:id="@+id/confirmPasswordTextView"
+            android:layout_weight="0.08"
+            android:layout_width="50dp"
+            android:textAlignment="textStart"
+            android:paddingRight="20dp" />
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/confirmPasswordText"
+            android:layout_width="200dp" />
+    </android.support.v7.widget.LinearLayoutCompat>
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -74,6 +77,5 @@
             android:onClick="signUpButtonClick"/>
 
     </android.support.v7.widget.LinearLayoutCompat>
-
 
 </LinearLayout>
