@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Fedora</string>
+    <string name="app_name">Fedora Hero</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="signUpText">Sign up</string>
+    <string name="loginButtonText">Login</string>
+    <string name="signUpButtonText">Sign up</string>
+    <string name="enterUserName">Enter Username</string>
 </resources>

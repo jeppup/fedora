@@ -22,7 +22,7 @@ public class SignUpActivity extends ServiceActivity<SignupResponse> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup);
+        setContentView(R.layout.signuptest);
     }
 
     public void signUpButtonClick(View v) {
