@@ -1,4 +1,5 @@
 package com.example.jol.fedora.signUp;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +7,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.jol.fedora.R;
+import com.example.jol.fedora.login.LoginActivity;
 import com.example.jol.fedora.service.FedoraClient;
 import com.example.jol.fedora.service.ServiceActivity;
 import com.example.jol.fedora.service.JsonFiles.SignupResponse;
@@ -41,6 +43,11 @@ public class SignUpActivity extends ServiceActivity<SignupResponse> {
 //            Intent loginIntent = new Intent(v.getContext(), SignUpActivity.class);
 //            startActivity(loginIntent);
 
+    }
+
+    public void backArrowClick(View v){
+        Intent backArrowIntent = new Intent(v.getContext(), LoginActivity.class);
+        startActivity(backArrowIntent);
     }
 
     @Override
