@@ -32,17 +32,25 @@ public class SignUpActivity extends ServiceActivity<SignupResponse> {
         EditText passwordTextBox = (EditText) findViewById(R.id.passwordEditText);
         EditText confirmPasswordTextBox = (EditText) findViewById(R.id.confirmPasswordText);
 
-        String userNameString = userNameTextBox.getText().toString();
-        String passwordText = passwordTextBox.getText().toString();
-        String confirmPasswordText = confirmPasswordTextBox.getText().toString();
-
+        String username = userNameTextBox.getText().toString();
+        String password = passwordTextBox.getText().toString();
+        String confirmPassword = confirmPasswordTextBox.getText().toString();
+        String requestBody = getRequestBody(username, password, confirmPassword);
 
         // TODO Fixa dom här röda fälten om username är tomt, eller om password inte matchar m.m
 
-            AsyncTask loginTask = new FedoraClient(getApplicationContext(), this).execute("users", userNameString, passwordText, confirmPasswordText);
+        AsyncTask loginTask = new FedoraClient(getApplicationContext(), this).execute("users", requestBody);
 //            Intent loginIntent = new Intent(v.getContext(), SignUpActivity.class);
 //            startActivity(loginIntent);
 
+    }
+
+    private String getRequestBody(String username, String password, String confirmPassword)
+    {
+        String body =  "{\"username\":\"" + username + "\",\"password\":\"" + password + "\",\"passwordConfirmation\":\"" + confirmPassword + "\",\"errors\":{\"username\":\"\"\n" +
+                "},\"isLoading\":false,\"invalid\":false}";
+
+        return body;
     }
 
     public void backArrowClick(View v){

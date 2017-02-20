@@ -35,27 +35,24 @@ public class FedoraClient extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         String response = "";
+        String resourceParam = params[0];
+        String requestBody = params[1];
+
         try {
-            response = POST(params[0], params[1], params[2], params[3]);
+            response = POST(resourceParam, requestBody);
         }catch (Exception ex){
             Log.d("LOGIN FAILED", ex.getMessage());
         }
 
-//        System.out.println(response);
         return response;
     }
 
-    public String POST(String... resource) throws Exception {
-        URL url = new URL(mBaseUrl + resource[0]);
+    public String POST(String resource, String body) throws Exception {
+        URL url = new URL(mBaseUrl + resource);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 
         connection.setRequestMethod("POST");
         addHttpHeaders(connection);
-
-        String body =  "{\"username\":\"" + resource[1] + "\",\"password\":\"" + resource[2] + "\",\"passwordConfirmation\":\"" + resource[3] + "\",\"errors\":{\"username\":\"\"\n" +
-                "},\"isLoading\":false,\"invalid\":false}";
-
-//        System.out.println(body);
 
         byte[] outputInBytes = body.getBytes("UTF-8");
         OutputStream os = connection.getOutputStream();
@@ -76,20 +73,13 @@ public class FedoraClient extends AsyncTask<String, Void, String> {
             out.append(line);
         }
 
-//        System.out.println(out.toString());
-
-
-        int responseCode = connection.getResponseCode();
-
-//        connection.setDoOutput(true);
-
         return out.toString();
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        callingActivity.deserializeAndCallback(s);
+    protected void onPostExecute(String responseBody) {
+        super.onPostExecute(responseBody);
+        callingActivity.deserializeAndCallback(responseBody);
     }
 
     private void addHttpHeaders(HttpsURLConnection connection){

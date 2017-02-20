@@ -32,8 +32,16 @@ public class LoginActivity extends ServiceActivity<LoginResult> {
     public void loginButtonClick(View v) {
         String password = ((EditText) findViewById(R.id.passwordEditText)).getText().toString();
         String username = ((EditText) findViewById(R.id.userNameEditText)).getText().toString();
+        String requestBody = getRequestBody(username, password);
 
-        AsyncTask loginTask = new FedoraClient(getApplicationContext(), this).execute("auth", username, password, password);
+        AsyncTask loginTask = new FedoraClient(getApplicationContext(), this).execute("auth", requestBody);
+    }
+
+    private String getRequestBody(String username, String password){
+        String body =  "{\"username\":\"" + username + "\",\"password\":\"" + password + "\",\"errors\":{\"username\":\"\"\n" +
+                "},\"isLoading\":false,\"invalid\":false}";
+
+        return body;
     }
 
     @Override
